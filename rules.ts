@@ -274,9 +274,9 @@ const rules: KarabinerRules[] = [
     //   },
     // },
 
-    // v = "moVe" 
+    // q = "move" (no relation just wanted all keys to be on the LHS)
     // couldn't wrap my head around hjkl so i use jikl
-    v: {
+    q: {
       j: {
         to: [{ key_code: "left_arrow" }],
       },
