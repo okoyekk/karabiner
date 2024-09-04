@@ -290,10 +290,38 @@ const rules: KarabinerRules[] = [
         to: [{ key_code: "right_arrow" }],
       },
     },
-
+    // Homerow - Click shortcut
+    b: {
+      to: [
+        {
+          key_code: "b",
+          modifiers: ["left_control", "left_command"],
+        },
+      ],
+    },
+    
+    // Homerow - Search+Click shortcut
+    n: {
+      to: [
+        {
+          key_code: "n",
+          modifiers: ["left_control", "left_command"],
+        },
+      ],
+    },
+    
+    // Homerow - Scroll shortcut
+    m: {
+      to: [
+        {
+          key_code: "m",
+          modifiers: ["left_control", "left_command"],
+        },
+      ],
+    }
     // // c = Musi*c* which isn't "m" because we want it to be on the left hand
     // c: {
-    //   p: {
+      //   p: {
     //     to: [{ key_code: "play_or_pause" }],
     //   },
     //   n: {
