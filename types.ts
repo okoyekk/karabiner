@@ -35,10 +35,10 @@ type FrontMostApplicationCondition = {
 
 type DeviceCondition = {
   type:
-    | "device_if"
-    | "device_unless"
-    | "device_exists_if"
-    | "device_exists_unless";
+  | "device_if"
+  | "device_unless"
+  | "device_exists_if"
+  | "device_exists_unless";
   identifiers: Identifiers;
   description?: string;
 };
@@ -126,6 +126,9 @@ export interface Modifiers {
   mandatory?: ModifiersKeys[];
 }
 
+/**
+ * @see https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to/
+ */
 export interface To {
   key_code?: KeyCode;
   modifiers?: ModifiersKeys[];
@@ -136,12 +139,9 @@ export interface To {
   };
   mouse_key?: MouseKey;
   pointing_button?: string;
-  /**
-   * Power Management plugin
-   * @example: sleep system
-   * @see: {@link https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/to/software_function/iokit_power_management_sleep_system/}
-   */
   software_function?: SoftwareFunction;
+  hold_down_milliseconds?: number;
+  repeat?: boolean;
 }
 
 export interface MouseKey {

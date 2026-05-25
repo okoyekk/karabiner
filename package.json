@@ -11,7 +11,7 @@
     "tsm": "^2.2.2"
   },
   "scripts": {
-    "build": "tsm rules.ts",
+    "build": "NODE_OPTIONS=\"--no-warnings\" node node_modules/tsm/bin.js rules.ts",
     "watch": "nodemon --exec yarn build -e ts"
   }
 }
