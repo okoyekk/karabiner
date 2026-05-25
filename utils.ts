@@ -23,6 +23,7 @@ export function createHyperSubLayer(
   commands: HyperKeySublayer,
   allSubLayerVariables: string[]
 ): Manipulator[] {
+  assertNoRecursiveSublayerShortcut(sublayer_key, commands);
   const subLayerVariableName = generateSubLayerVariableName(sublayer_key);
 
   return [
@@ -152,6 +153,17 @@ export function createHyperSubLayers(subLayers: {
 
 function generateSubLayerVariableName(key: KeyCode) {
   return `hyper_sublayer_${key}`;
+}
+
+function assertNoRecursiveSublayerShortcut(
+  sublayer_key: KeyCode,
+  commands: HyperKeySublayer
+) {
+  if (commands[sublayer_key]) {
+    throw new Error(
+      `Hyper sublayer "${sublayer_key}" cannot define a shortcut on "${sublayer_key}" because that key is reserved to activate the sublayer.`
+    );
+  }
 }
 
 /**

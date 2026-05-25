@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karabiner Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- Top Premium Navigation Bar -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-icon">⌘</div>
+        <div class="logo-text">
+          <h1>Karabiner Configurator</h1>
+          <span>*Tailored for Mac devices</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="app-workspace">
+
+      <!-- Left Dashboard Sidebar -->
+      <aside class="app-sidebar">
+        <div class="sidebar-card">
+          <h2>Active Layer</h2>
+          <p class="section-desc">Select a layer to inspect or edit its key bindings.</p>
+          <div class="layer-selector">
+            <button class="layer-btn active" data-layer="none">
+              <span class="key-icon">Base</span> Base Layer (Default mappings)
+            </button>
+            <button class="layer-btn" data-layer="a">
+              <span class="key-icon">A</span> App Shortcuts (Hyper + A)
+            </button>
+            <button class="layer-btn" data-layer="s">
+              <span class="key-icon">S</span> Site Shortcuts (Hyper + S)
+            </button>
+            <button class="layer-btn" data-layer="x">
+              <span class="key-icon">X</span> Exec Shell Layer (Hyper + X)
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-card summary-card">
+          <h2>Quick Summary</h2>
+          <div class="summary-stats">
+            <div class="stat-item">
+              <span class="stat-num" id="stat-total">0</span>
+              <span class="stat-lbl">Total Mappings</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-num" id="stat-sublayers">3</span>
+              <span class="stat-lbl">Active Sublayers</span>
+            </div>
+          </div>
+          <div class="summary-actions">
+            <button class="btn btn-primary" id="btn-apply-layout">
+              <span class="btn-icon">⚡</span> Save & Apply Layout
+            </button>
+            <button class="btn btn-secondary" id="btn-discard-layout" style="display: none;">
+              Discard Unsaved Changes
+            </button>
+          </div>
+          <p class="apply-hint" id="apply-hint">Unsaved changes. Press "Save &amp; Apply Layout" to rebuild your Karabiner config.</p>
+        </div>
+      </aside>
+
+      <!-- Center Virtual Keyboard & Editing Pane -->
+      <section class="keyboard-pane">
+        <div class="pane-header">
+          <h2 id="layer-title">Base Layer (Default mappings)</h2>
+          <span class="badge" id="layer-badge">Active</span>
+        </div>
+
+        <!-- Visual Keyboard Grid -->
+        <div class="keyboard-container">
+          <div class="keyboard-row">
+            <button class="key-cap" id="key-grave_accent_and_tilde" data-key="grave_accent_and_tilde">~</button>
+            <button class="key-cap" id="key-1" data-key="1">1</button>
+            <button class="key-cap" id="key-2" data-key="2">2</button>
+            <button class="key-cap" id="key-3" data-key="3">3</button>
+            <button class="key-cap" id="key-4" data-key="4">4</button>
+            <button class="key-cap" id="key-5" data-key="5">5</button>
+            <button class="key-cap" id="key-6" data-key="6">6</button>
+            <button class="key-cap" id="key-7" data-key="7">7</button>
+            <button class="key-cap" id="key-8" data-key="8">8</button>
+            <button class="key-cap" id="key-9" data-key="9">9</button>
+            <button class="key-cap" id="key-0" data-key="0">0</button>
+            <button class="key-cap" id="key-hyphen" data-key="hyphen">-</button>
+            <button class="key-cap" id="key-equal_sign" data-key="equal_sign">=</button>
+            <button class="key-cap wide" disabled>Delete</button>
+          </div>
+          <div class="keyboard-row">
+            <button class="key-cap wide" id="key-tab" data-key="tab">Tab</button>
+            <button class="key-cap" id="key-q" data-key="q">Q</button>
+            <button class="key-cap" id="key-w" data-key="w">W</button>
+            <button class="key-cap" id="key-e" data-key="e">E</button>
+            <button class="key-cap" id="key-r" data-key="r">R</button>
+            <button class="key-cap" id="key-t" data-key="t">T</button>
+            <button class="key-cap" id="key-y" data-key="y">Y</button>
+            <button class="key-cap" id="key-u" data-key="u">U</button>
+            <button class="key-cap" id="key-i" data-key="i">I</button>
+            <button class="key-cap" id="key-o" data-key="o">O</button>
+            <button class="key-cap" id="key-p" data-key="p">P</button>
+            <button class="key-cap" id="key-open_bracket" data-key="open_bracket">[</button>
+            <button class="key-cap" id="key-close_bracket" data-key="close_bracket">]</button>
+            <button class="key-cap" id="key-backslash" data-key="backslash">\</button>
+          </div>
+          <div class="keyboard-row">
+            <button class="key-cap extra-wide active-hyper" id="key-caps_lock" data-key="caps_lock">Caps Lock</button>
+            <button class="key-cap" id="key-a" data-key="a">A</button>
+            <button class="key-cap" id="key-s" data-key="s">S</button>
+            <button class="key-cap" id="key-d" data-key="d">D</button>
+            <button class="key-cap" id="key-f" data-key="f">F</button>
+            <button class="key-cap" id="key-g" data-key="g">G</button>
+            <button class="key-cap" id="key-h" data-key="h">H</button>
+            <button class="key-cap" id="key-j" data-key="j">J</button>
+            <button class="key-cap" id="key-k" data-key="k">K</button>
+            <button class="key-cap" id="key-l" data-key="l">L</button>
+            <button class="key-cap" id="key-semicolon" data-key="semicolon">;</button>
+            <button class="key-cap" id="key-quote" data-key="quote">'</button>
+            <button class="key-cap extra-wide" disabled>Return</button>
+          </div>
+          <div class="keyboard-row">
+            <button class="key-cap double-wide" disabled>Shift</button>
+            <button class="key-cap" id="key-z" data-key="z">Z</button>
+            <button class="key-cap" id="key-x" data-key="x">X</button>
+            <button class="key-cap" id="key-c" data-key="c">C</button>
+            <button class="key-cap" id="key-v" data-key="v">V</button>
+            <button class="key-cap" id="key-b" data-key="b">B</button>
+            <button class="key-cap" id="key-n" data-key="n">N</button>
+            <button class="key-cap" id="key-m" data-key="m">M</button>
+            <button class="key-cap" disabled>,</button>
+            <button class="key-cap" disabled>.</button>
+            <button class="key-cap" id="key-slash" data-key="slash">/</button>
+            <button class="key-cap double-wide" disabled>Shift</button>
+          </div>
+          <div class="keyboard-row">
+            <button class="key-cap" disabled>Ctrl</button>
+            <button class="key-cap" disabled>Opt</button>
+            <button class="key-cap" disabled>Cmd</button>
+            <button class="key-cap space-cap" id="key-spacebar" data-key="spacebar">Spacebar</button>
+            <button class="key-cap" disabled>Cmd</button>
+            <button class="key-cap" disabled>Opt</button>
+            <button class="key-cap" id="key-left_arrow" data-key="left_arrow">←</button>
+            <button class="key-cap" id="key-up_arrow" data-key="up_arrow">↑</button>
+            <button class="key-cap" id="key-down_arrow" data-key="down_arrow">↓</button>
+            <button class="key-cap" id="key-right_arrow" data-key="right_arrow">→</button>
+          </div>
+        </div>
+
+        <p class="legend-text">💡 Keycodes highlighted in <span class="legend-color">purple</span> are actively mapped. Click a key to edit its action.</p>
+      </section>
+
+      <!-- Right Mapping Config Modal/Drawer -->
+      <section class="drawer-pane" id="editor-drawer">
+        <div class="drawer-header">
+          <h3>Edit Key Mapping</h3>
+          <button class="btn-close" id="btn-close-drawer">×</button>
+        </div>
+        <div class="drawer-body">
+          <div class="selected-key-display">
+            <span class="label">Key Target</span>
+            <div class="key-tag" id="selected-key-name">N/A</div>
+          </div>
+
+          <form id="mapping-form">
+            <div class="form-group">
+              <label for="action-type">Action Type</label>
+              <select class="form-control" id="action-type">
+                <option value="none">Disabled (No Mapping)</option>
+                <option value="app">Launch Application</option>
+                <option value="open">Open URL in Browser</option>
+                <option value="shell">Execute Shell Command</option>
+                <option value="to">Custom Keystroke / Action</option>
+              </select>
+            </div>
+
+            <!-- Contextual fields depending on action type -->
+            <div class="action-fields" id="field-group-app" style="display: none;">
+              <div class="form-group">
+                <label for="app-name">Application Name</label>
+                <input type="text" class="form-control" id="app-name" placeholder="e.g. Google Chrome, Obsidian">
+              </div>
+            </div>
+
+            <div class="action-fields" id="field-group-open" style="display: none;">
+              <div class="form-group">
+                <label for="open-url">URL</label>
+                <input type="text" class="form-control" id="open-url" placeholder="e.g. https://google.com">
+                <p class="form-hint" id="open-url-hint">Include the full URL with a scheme, like "https://example.com".</p>
+              </div>
+            </div>
+
+            <div class="action-fields" id="field-group-shell" style="display: none;">
+              <div class="form-group">
+                <label for="shell-command">Shell Script</label>
+                <textarea class="form-control" id="shell-command" rows="3" placeholder="e.g. echo 'Hello world'"></textarea>
+              </div>
+            </div>
+
+            <div class="action-fields" id="field-group-to" style="display: none;">
+              <div class="form-group">
+                <label for="to-key">Target Keystroke</label>
+                <input type="text" class="form-control" id="to-key" placeholder="e.g. left_arrow, tab">
+              </div>
+              <div class="form-group">
+                <label>Keystroke Modifiers</label>
+                <div class="modifiers-checkbox-grid">
+                  <label class="check-container">
+                    <input type="checkbox" id="mod-control"> Control
+                  </label>
+                  <label class="check-container">
+                    <input type="checkbox" id="mod-shift"> Shift
+                  </label>
+                  <label class="check-container">
+                    <input type="checkbox" id="mod-option"> Option
+                  </label>
+                  <label class="check-container">
+                    <input type="checkbox" id="mod-command"> Command
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" id="field-group-note" style="display: none;">
+              <label for="mapping-note">Note (Optional)</label>
+              <textarea class="form-control" id="mapping-note" rows="3" placeholder="Add context or a reminder for this mapping"></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-success" id="btn-save-mapping">Save Mapping</button>
+              <button type="button" class="btn btn-danger" id="btn-delete-mapping" style="display: none;">Clear Mapping</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Overlay Loading / Success Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
