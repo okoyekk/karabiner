@@ -1,6 +1,6 @@
 import fs from "fs";
 import { KarabinerRules } from "./types";
-import { createHyperSubLayers, app, open, rectangle, shell } from "./utils";
+import { createHyperSubLayers, app, open, shell } from "./utils";
 
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
@@ -149,6 +149,12 @@ const rules: KarabinerRules[] = [
       w: app("Sublime Text"),
       v: app("Visual Studio Code"),
       e: app("Obsidian"),
+    },
+    // x = "eXecute" shell commands
+    x: {
+      h: shell`
+        echo "Hello, world!"
+      `,
     },
 
     // JKIL Movement
