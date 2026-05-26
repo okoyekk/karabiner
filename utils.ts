@@ -23,6 +23,7 @@ export function createHyperSubLayer(
   commands: HyperKeySublayer,
   allSubLayerVariables: string[]
 ): Manipulator[] {
+  assertNoRecursiveSublayerShortcut(sublayer_key, commands);
   const subLayerVariableName = generateSubLayerVariableName(sublayer_key);
 
   return [
@@ -154,6 +155,17 @@ function generateSubLayerVariableName(key: KeyCode) {
   return `hyper_sublayer_${key}`;
 }
 
+function assertNoRecursiveSublayerShortcut(
+  sublayer_key: KeyCode,
+  commands: HyperKeySublayer
+) {
+  if (commands[sublayer_key]) {
+    throw new Error(
+      `Hyper sublayer "${sublayer_key}" cannot define a shortcut on "${sublayer_key}" because that key is reserved to activate the sublayer.`
+    );
+  }
+}
+
 /**
  * Shortcut for "open" shell command
  */
@@ -188,20 +200,6 @@ export function shell(
       shell_command: command.trim(),
     })),
     description: commands.join(" && "),
-  };
-}
-
-/**
- * Shortcut for managing window sizing with Rectangle
- */
-export function rectangle(name: string): LayerCommand {
-  return {
-    to: [
-      {
-        shell_command: `open -g rectangle://execute-action?name=${name}`,
-      },
-    ],
-    description: `Window: ${name}`,
   };
 }
 

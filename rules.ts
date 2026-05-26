@@ -1,6 +1,91 @@
 import fs from "fs";
 import { KarabinerRules } from "./types";
-import { createHyperSubLayers, app, open, rectangle, shell } from "./utils";
+import { createHyperSubLayers, app, open, shell } from "./utils";
+
+const METADATA_KEYS = ["_comment"] as const;
+const PRIORITY_MAPPING_KEYS = ["spacebar", "a", "s", "x"] as const;
+
+// Load mappings dynamically from JSON config file
+const mappingsData = JSON.parse(fs.readFileSync("mappings.json", "utf-8"));
+
+validateMappingsData(mappingsData);
+
+function mapAction(action: any) {
+  if (action.type === "open") {
+    return open(action.value);
+  }
+  if (action.type === "app") {
+    return app(action.value);
+  }
+  if (action.type === "shell") {
+    return shell`${action.value}`;
+  }
+  if (action.type === "to") {
+    return { to: action.value };
+  }
+  return action;
+}
+
+const activeSublayers: Record<string, any> = {};
+
+for (const [key, mapping] of getOrderedMappingEntries(mappingsData)) {
+  if ((mapping as any).type === "sublayer") {
+    const sublayerMap: Record<string, any> = {};
+    for (const [subKey, subMapping] of Object.entries((mapping as any).mappings)) {
+      sublayerMap[subKey] = mapAction(subMapping);
+    }
+    activeSublayers[key] = sublayerMap;
+  } else {
+    activeSublayers[key] = mapAction(mapping);
+  }
+}
+
+function getOrderedMappingEntries(mappings: Record<string, any>) {
+  const orderedEntries: [string, any][] = [];
+  const seen = new Set<string>();
+
+  METADATA_KEYS.forEach((key) => {
+    seen.add(key);
+  });
+
+  PRIORITY_MAPPING_KEYS.forEach((key) => {
+    if (key in mappings) {
+      orderedEntries.push([key, mappings[key]]);
+      seen.add(key);
+    }
+  });
+
+  Object.entries(mappings).forEach(([key, value]) => {
+    if (!seen.has(key)) {
+      orderedEntries.push([key, value]);
+    }
+  });
+
+  return orderedEntries;
+}
+
+function validateMappingsData(mappings: Record<string, any>) {
+  Object.entries(mappings).forEach(([key, value]) => {
+    if (isMetadataKey(key)) {
+      return;
+    }
+
+    if ((value as any).type !== "sublayer") {
+      return;
+    }
+
+    const sublayerMappings = (value as any).mappings || {};
+    if (key in sublayerMappings) {
+      throw new Error(
+        `Sublayer "${key}" cannot define a shortcut on "${key}" because that key is reserved to activate the sublayer.`
+      );
+    }
+  });
+}
+
+function isMetadataKey(key: string) {
+  return METADATA_KEYS.includes(key as (typeof METADATA_KEYS)[number]);
+}
 
 const rules: KarabinerRules[] = [
   // Define the Hyper key itself
@@ -118,81 +203,7 @@ const rules: KarabinerRules[] = [
     ]
   },
 
-
-  ...createHyperSubLayers({
-    spacebar: open(
-      "https://google.com"
-    ),
-    // s = browse "S"ite
-    s: {
-      r: open("https://reddit.com"),
-      c: open("https://chat.com"),
-      g: open("https://gemini.google.com"),
-      a: open("https://claude.ai"),
-      m: open("https://monkeytype.com"),
-    },
-    // a = open "A"pplications
-    a: {
-      s: app("Google Chrome"),
-      b: app("Safari"),
-      d: app("Discord"),
-      x: app("Calendar"),
-      r: app("Reminders"),
-      z: app("Spark"),
-      n: app("Notes"),
-      t: app("iTerm"),
-      f: app("Finder"),
-      c: app("Messages"),
-      i: app("iPhone Mirroring"),
-      p: app("Preview"),
-      m: app("Spotify"),
-      w: app("Sublime Text"),
-      v: app("Visual Studio Code"),
-      e: app("Obsidian"),
-    },
-
-    // JKIL Movement
-    j: {
-      to: [{ key_code: "left_arrow" }],
-    },
-    k: {
-      to: [{ key_code: "down_arrow" }],
-    },
-    i: {
-      to: [{ key_code: "up_arrow" }],
-    },
-    l: {
-      to: [{ key_code: "right_arrow" }],
-    },
-    // Homerow.app - Click shortcut
-    b: {
-      to: [
-        {
-          key_code: "b",
-          modifiers: ["left_control", "left_command"],
-        },
-      ],
-    },
-    // Homerow.app - Search+Click shortcut
-    n: {
-      to: [
-        {
-          key_code: "n",
-          modifiers: ["left_control", "left_command"],
-        },
-      ],
-    },
-    // Homerow.app - Scroll shortcut
-    m: {
-      to: [
-        {
-          key_code: "m",
-          modifiers: ["left_control", "left_command"],
-        },
-      ],
-    }
-
-  }),
+  ...createHyperSubLayers(activeSublayers),
 ];
 
 fs.writeFileSync(

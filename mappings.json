@@ -1,0 +1,181 @@
+{
+  "_comment": "This file is the source of truth for generating Karabiner rules. You can edit it manually or via the web interface with \"yarn run gui\".",
+  "spacebar": {
+    "type": "open",
+    "value": "https://google.com"
+  },
+  "a": {
+    "type": "sublayer",
+    "mappings": {
+      "s": {
+        "type": "app",
+        "value": "Google Chrome"
+      },
+      "b": {
+        "type": "app",
+        "value": "Safari"
+      },
+      "d": {
+        "type": "app",
+        "value": "Discord"
+      },
+      "x": {
+        "type": "app",
+        "value": "Calendar"
+      },
+      "r": {
+        "type": "app",
+        "value": "Reminders"
+      },
+      "z": {
+        "type": "app",
+        "value": "Spark"
+      },
+      "n": {
+        "type": "app",
+        "value": "Notes"
+      },
+      "t": {
+        "type": "app",
+        "value": "iTerm"
+      },
+      "f": {
+        "type": "app",
+        "value": "Finder"
+      },
+      "c": {
+        "type": "app",
+        "value": "Messages"
+      },
+      "i": {
+        "type": "app",
+        "value": "iPhone Mirroring"
+      },
+      "p": {
+        "type": "app",
+        "value": "Preview"
+      },
+      "m": {
+        "type": "app",
+        "value": "Spotify"
+      },
+      "w": {
+        "type": "app",
+        "value": "Sublime Text"
+      },
+      "v": {
+        "type": "app",
+        "value": "Visual Studio Code"
+      },
+      "e": {
+        "type": "app",
+        "value": "Obsidian"
+      }
+    }
+  },
+  "s": {
+    "type": "sublayer",
+    "mappings": {
+      "r": {
+        "type": "open",
+        "value": "https://reddit.com"
+      },
+      "c": {
+        "type": "open",
+        "value": "https://chat.com"
+      },
+      "g": {
+        "type": "open",
+        "value": "https://gemini.google.com"
+      },
+      "a": {
+        "type": "open",
+        "value": "https://claude.ai"
+      },
+      "m": {
+        "type": "open",
+        "value": "https://monkeytype.com"
+      }
+    }
+  },
+  "x": {
+    "type": "sublayer",
+    "mappings": {
+      "h": {
+        "type": "shell",
+        "value": "say \"Hello, world!\""
+      }
+    }
+  },
+  "j": {
+    "type": "to",
+    "value": [
+      {
+        "key_code": "left_arrow"
+      }
+    ]
+  },
+  "k": {
+    "type": "to",
+    "value": [
+      {
+        "key_code": "down_arrow"
+      }
+    ]
+  },
+  "i": {
+    "type": "to",
+    "value": [
+      {
+        "key_code": "up_arrow"
+      }
+    ]
+  },
+  "l": {
+    "type": "to",
+    "value": [
+      {
+        "key_code": "right_arrow"
+      }
+    ]
+  },
+  "b": {
+    "note": "Homerow.app click shortcut",
+    "type": "to",
+    "value": [
+      {
+        "key_code": "b",
+        "modifiers": [
+          "left_control",
+          "left_command"
+        ]
+      }
+    ]
+  },
+  "n": {
+    "note": "Homerow.app search and click shortcut",
+    "type": "to",
+    "value": [
+      {
+        "key_code": "n",
+        "modifiers": [
+          "left_control",
+          "left_command"
+        ]
+      }
+    ]
+  },
+  "m": {
+    "note": "Homerow.app scroll shortcut",
+    "type": "to",
+    "value": [
+      {
+        "key_code": "m",
+        "modifiers": [
+          "left_control",
+          "left_command"
+        ]
+      }
+    ]
+  }
+}

@@ -12,6 +12,7 @@
   },
   "scripts": {
     "build": "NODE_OPTIONS=\"--no-warnings\" node node_modules/tsm/bin.js rules.ts",
+    "gui": "node server.js",
     "watch": "nodemon --exec yarn build -e ts"
   }
 }
